@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Application Form</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#4CAF50,#2196F3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    background:#fff;
+    width:90%;
+    max-width:500px;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
+}
+
+textarea{
+    resize:vertical;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#2196F3;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1976D2;
+}
+
+.error{
+    color:red;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Job Application Form</h2>
+
+<form id="jobForm">
+
+<div class="input-group">
+<label>Name</label>
+<input type="text" id="name">
+<div class="error" id="nameError"></div>
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email">
+<div class="error" id="emailError"></div>
+</div>
+
+<div class="input-group">
+<label>Phone</label>
+<input type="text" id="phone">
+<div class="error" id="phoneError"></div>
+</div>
+
+<div class="input-group">
+<label>Message</label>
+<textarea id="message" rows="5"></textarea>
+<div class="error" id="messageError"></div>
+</div>
+
+<button type="submit">Submit Application</button>
+
+<div class="success" id="successMessage"></div>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("jobForm").addEventListener("submit", function(event){
+
+event.preventDefault();
+
+document.getElementById("nameError").innerHTML="";
+document.getElementById("emailError").innerHTML="";
+document.getElementById("phoneError").innerHTML="";
+document.getElementById("messageError").innerHTML="";
+document.getElementById("successMessage").innerHTML="";
+
+let name=document.getElementById("name").value.trim();
+let email=document.getElementById("email").value.trim();
+let phone=document.getElementById("phone").value.trim();
+let message=document.getElementById("message").value.trim();
+
+let valid=true;
+
+if(name===""){
+    document.getElementById("nameError").innerHTML="Name is required.";
+    valid=false;
+}
+
+let emailPattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(email===""){
+    document.getElementById("emailError").innerHTML="Email is required.";
+    valid=false;
+}
+else if(!emailPattern.test(email)){
+    document.getElementById("emailError").innerHTML="Enter a valid email address.";
+    valid=false;
+}
+
+let phonePattern=/^[0-9]{10}$/;
+
+if(phone===""){
+    document.getElementById("phoneError").innerHTML="Phone number is required.";
+    valid=false;
+}
+else if(!phonePattern.test(phone)){
+    document.getElementById("phoneError").innerHTML="Phone number must be 10 digits.";
+    valid=false;
+}
+
+if(message===""){
+    document.getElementById("messageError").innerHTML="Message cannot be empty.";
+    valid=false;
+}
+
+if(valid){
+    document.getElementById("successMessage").innerHTML=
+    "Application submitted successfully!";
+    document.getElementById("jobForm").reset();
+}
+
+});
+
+</script>
+
+</body>
+</html>
